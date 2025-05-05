@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>정지아의 three.js</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+    .sidebar {
+      width: 240px;
+      background: #f4f4f4;
+      border-right: 1px solid #ccc;
+      padding: 15px;
+      overflow-y: auto;
+    }
+    .content {
+      flex-grow: 1;
+      height: 100%;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 1em;
+      margin: 0;
+    }
+    .folder > span {
+      cursor: pointer;
+      font-weight: bold;
+      color: #2c3e50;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    .file {
+      margin-left: 16px;
+      color: #34495e;
+    }
+    a {
+      text-decoration: none;
+      color: #2980b9;
+      font-size: 14px;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .hidden {
+      display: none;
+    }
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <!-- <h3 style="text-align: center;">정지아의 three.js</h3> -->
+    <h3>📁 DO IT! 웹 표준</h3>
+    <ul>
+      <!-- Only template structure here for simplicity -->
+      <li class="folder"><span onclick="toggle(this)">▶ 02/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./02/index.html" target="viewer">index.html</a></li>
+          <li class="file"><a href="./02/results/web.html" target="viewer">results/web.html</a></li>
+        </ul>
+      </li>
+      <li class="folder"><span onclick="toggle(this)">▶ 03/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./03/index.html" target="viewer">index.html</a></li>
+          <li class="file"><a href="./03/results/comment.html" target="viewer">comment.html</a></li>
+          <li class="file"><a href="./03/results/sol-1.html" target="viewer">sol-1.html</a></li>
+          <li class="file"><a href="./03/results/structure.html" target="viewer">structure.html</a></li>
+        </ul>
+      </li>
+      <li class="folder"><span onclick="toggle(this)">▶ 04/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./04/results/embed.html" target="viewer">embed.html</a></li>
+          <li class="file"><a href="./04/results/audio-1.html" target="viewer">audio-1.html</a></li>
+          <li class="file"><a href="./04/results/audio-2.html" target="viewer">audio-2.html</a></li>
+          <li class="file"><a href="./04/results/video-1.html" target="viewer">video-1.html</a></li>
+          <li class="file"><a href="./04/results/video-2.html" target="viewer">video-2.html</a></li>
+          <li class="file"><a href="./04/results/video-3.html" target="viewer">video-3.html</a></li>
+          <li class="file"><a href="./04/READE.html" target="viewer">video-3.html</a></li>
+          <!-- 나머지도 동일 방식 -->
+        </ul>
+      </li>
+      
+      <li class="folder"><span onclick="toggle(this)">▶ 05/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./05/results/button-1.html" target="viewer">button-1.html</a></li>
+          <li class="file"><a href="./05/results/button-2.html" target="viewer">button-2.html</a></li>
+          <li class="file"><a href="./05/results/button-3.html" target="viewer">button-3.html</a></li>
+          <li class="file"><a href="./05/results/date-1.html" target="viewer">date-1.html</a></li>
+          <li class="file"><a href="./05/results/date-2.html" target="viewer">date-2.html</a></li>
+          <li class="file"><a href="./05/results/date-3.html" target="viewer">date-3.html</a></li>
+          <li class="file"><a href="./05/results/fieldset.html" target="viewer">fieldset.html</a></li>
+          <li class="file"><a href="./05/results/file.html" target="viewer">file.html</a></li>
+          <li class="file"><a href="./05/results/hidden.html" target="viewer">hidden.html</a></li>
+          <li class="file"><a href="./05/results/label-1.html" target="viewer">label-1.html</a></li>
+          <li class="file"><a href="./05/results/label-2.html" target="viewer">label-2.html</a></li>
+          <li class="file"><a href="./05/results/login-image.html" target="viewer">login-image.html</a></li>
+          <li class="file"><a href="./05/login.html" target="viewer">login.html</a></li>
+          <li class="file"><a href="./05/notice.html" target="viewer">notice.html</a></li>
+          <li class="file"><a href="./05/number.html" target="viewer">number.html</a></li>
+          <li class="file"><a href="./05/order.html" target="viewer">order.html</a></li>
+          <li class="file"><a href="./05/pf.html" target="viewer">pf.html</a></li>
+          <li class="file"><a href="./05/placeholder.html" target="viewer">placeholder.html</a></li>
+          <li class="file"><a href="./05/quiz-1.html" target="viewer">quiz-1.html</a></li>
+          <li class="file"><a href="./05/quiz-2.html" target="viewer">quiz-2.html</a></li>
+          <li class="file"><a href="./05/radio-check.html" target="viewer">radio-check.html</a></li>
+        </ul>
+      </li>
+
+      <li class="folder"><span onclick="toggle(this)">▶ 06/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./06/basic-style.html" target="viewer">basic-style.html</a></li>
+          <li class="file"><a href="./06/cascading.html" target="viewer">cascading.html</a></li>
+          <li class="file"><a href="./06/class.html" target="viewer">class.html</a></li>
+          <li class="file"><a href="./06/group.html" target="viewer">group.html</a></li>
+          <li class="file"><a href="./06/id.html" target="viewer">id.html</a></li>
+          <li class="file"><a href="./06/inline.html" target="viewer">inline.html</a></li>
+          <li class="file"><a href="./06/no-style.html" target="viewer">no-style.html</a></li>
+          <li class="file"><a href="./06/quiz-1.html" target="viewer">quiz-1.html</a></li>
+          <li class="file"><a href="./06/quiz-2.html" target="viewer">quiz-2.html</a></li>
+          <li class="file"><a href="./06/sol-1.html" target="viewer">sol-1.html</a></li>
+          <li class="file"><a href="./06/sol-2.html" target="viewer">sol-2.html</a></li>
+          <li class="file"><a href="./06/stylesheet-1.html" target="viewer">stylesheet-1.html</a></li>
+          <li class="file"><a href="./06/stylesheet-2.html" target="viewer">stylesheet-2.html</a></li>
+          <li class="file"><a href="./06/type.html" target="viewer">type.html</a></li>
+          <li class="file"><a href="./06/universe.html" target="viewer">universe.html</a></li>
+        </ul>
+      </li>
+      
+      <li class="folder"><span onclick="toggle(this)">▶ 07/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./07/color.html" target="viewer">color.html</a></li>
+          <li class="file"><a href="./07/font.html" target="viewer">font.html</a></li>
+          <li class="file"><a href="./07/icon.html" target="viewer">icon.html</a></li>
+          <li class="file"><a href="./07/line-1.html" target="viewer">line-1.html</a></li>
+          <li class="file"><a href="./07/line-2.html" target="viewer">line-2.html</a></li>
+          <li class="file"><a href="./07/list-1.html" target="viewer">list-1.html</a></li>
+          <li class="file"><a href="./07/list-2.html" target="viewer">list-2.html</a></li>
+          <li class="file"><a href="./07/list-3.html" target="viewer">list-3.html</a></li>
+          <li class="file"><a href="./07/quiz-1.html" target="viewer">quiz-1.html</a></li>
+          <li class="file"><a href="./07/quiz-2.html" target="viewer">quiz-2.html</a></li>
+          <li class="file"><a href="./07/rgba.html" target="viewer">rgba.html</a></li>
+          <li class="file"><a href="./07/sol-1.html" target="viewer">sol-1.html</a></li>
+          <li class="file"><a href="./07/sol-2.html" target="viewer">sol-2.html</a></li>
+          <li class="file"><a href="./07/spacing.html" target="viewer">spacing.html</a></li>
+          <li class="file"><a href="./07/table-1.html" target="viewer">table-1.html</a></li>
+          <li class="file"><a href="./07/table-2.html" target="viewer">table-2.html</a></li>
+          <li class="file"><a href="./07/text-align.html" target="viewer">text-align.html</a></li>
+          <li class="file"><a href="./07/text-decoration.html" target="viewer">text-decoration.html</a></li>
+          <li class="file"><a href="./07/text-shadow.html" target="viewer">text-shadow.html</a></li>
+          <li class="file"><a href="./07/text-transform.html" target="viewer">text-transform.html</a></li>
+          <li class="file"><a href="./07/tstyle.html" target="viewer">tstyle.html</a></li>
+          <li class="file"><a href="./07/webfont.html" target="viewer">webfont.html</a></li>
+        </ul>
+      </li>
+    
+      <li class="folder"><span onclick="toggle(this)">▶ 08/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./08/block.html" target="viewer">block.html</a></li>
+          <li class="file"><a href="./08/border-1.html" target="viewer">border-1.html</a></li>
+          <li class="file"><a href="./08/border-2.html" target="viewer">border-2.html</a></li>
+          <li class="file"><a href="./08/border-3.html" target="viewer">border-3.html</a></li>
+          <li class="file"><a href="./08/border-4.html" target="viewer">border-4.html</a></li>
+          <li class="file"><a href="./08/border-5.html" target="viewer">border-5.html</a></li>
+          <li class="file"><a href="./08/border-6.html" target="viewer">border-6.html</a></li>
+          <li class="file"><a href="./08/border-7.html" target="viewer">border-7.html</a></li>
+          <li class="file"><a href="./08/border-8.html" target="viewer">border-8.html</a></li>
+          <li class="file"><a href="./08/box-shadow.html" target="viewer">box-shadow.html</a></li>
+          <li class="file"><a href="./08/box-sizing.html" target="viewer">box-sizing.html</a></li>
+          <li class="file"><a href="./08/box-width.html" target="viewer">box-width.html</a></li>
+          <li class="file"><a href="./08/boxmodel-1.html" target="viewer">boxmodel-1.html</a></li>
+          <li class="file"><a href="./08/boxmodel-2.html" target="viewer">boxmodel-2.html</a></li>
+          <li class="file"><a href="./08/boxmodel.html" target="viewer">boxmodel.html</a></li>
+          <li class="file"><a href="./08/button.html" target="viewer">button.html</a></li>
+          <li class="file"><a href="./08/display.html" target="viewer">display.html</a></li>
+          <li class="file"><a href="./08/float-1.html" target="viewer">float-1.html</a></li>
+          <li class="file"><a href="./08/float-2.html" target="viewer">float-2.html</a></li>
+          <li class="file"><a href="./08/float-3.html" target="viewer">float-3.html</a></li>
+          <li class="file"><a href="./08/float-4.html" target="viewer">float-4.html</a></li>
+          <li class="file"><a href="./08/inline.html" target="viewer">inline.html</a></li>
+          <li class="file"><a href="./08/left-top.html" target="viewer">left-top.html</a></li>
+          <li class="file"><a href="./08/margin-1.html" target="viewer">margin-1.html</a></li>
+        </ul>
+      </li>
+      <li class="folder"><span onclick="toggle(this)">▶ 09/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./09/background.html" target="viewer">background.html</a></li>
+          <li class="file"><a href="./09/bg-1.html" target="viewer">bg-1.html</a></li>
+          <li class="file"><a href="./09/bg-2.html" target="viewer">bg-2.html</a></li>
+          <li class="file"><a href="./09/bg-3.html" target="viewer">bg-3.html</a></li>
+          <li class="file"><a href="./09/bg-4.html" target="viewer">bg-4.html</a></li>
+          <li class="file"><a href="./09/bg-clip.html" target="viewer">bg-clip.html</a></li>
+          <li class="file"><a href="./09/linear-1.html" target="viewer">linear-1.html</a></li>
+          <li class="file"><a href="./09/linear-2.html" target="viewer">linear-2.html</a></li>
+          <li class="file"><a href="./09/linear-3.html" target="viewer">linear-3.html</a></li>
+          <li class="file"><a href="./09/pattern.html" target="viewer">pattern.html</a></li>
+          <li class="file"><a href="./09/quiz-1.html" target="viewer">quiz-1.html</a></li>
+          <li class="file"><a href="./09/quiz-2.html" target="viewer">quiz-2.html</a></li>
+          <li class="file"><a href="./09/radial-1.html" target="viewer">radial-1.html</a></li>
+          <li class="file"><a href="./09/radial-2.html" target="viewer">radial-2.html</a></li>
+          <li class="file"><a href="./09/radial-3.html" target="viewer">radial-3.html</a></li>
+          <li class="file"><a href="./09/radial-4.html" target="viewer">radial-4.html</a></li>
+          <li class="file"><a href="./09/repeating.html" target="viewer">repeating.html</a></li>
+          <li class="file"><a href="./09/sol-1.html" target="viewer">sol-1.html</a></li>
+          <li class="file"><a href="./09/sol-2.html" target="viewer">sol-2.html</a></li>
+        </ul>
+      </li>
+      <li class="folder"><span onclick="toggle(this)">▶ 10/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./10/card.html" target="viewer">card.html</a></li>
+          <li class="file"><a href="./10/em.html" target="viewer">em.html</a></li>
+          <li class="file"><a href="./10/image.html" target="viewer">image.html</a></li>
+          <li class="file"><a href="./10/mq.html" target="viewer">mq.html</a></li>
+          <li class="file"><a href="./10/object-fit.html" target="viewer">object-fit.html</a></li>
+          <li class="file"><a href="./10/quiz.html" target="viewer">quiz.html</a></li>
+          <li class="file"><a href="./10/rem.html" target="viewer">rem.html</a></li>
+          <li class="file"><a href="./10/sol.html" target="viewer">sol.html</a></li>
+        </ul>
+      </li>
+      <li class="folder"><span onclick="toggle(this)">▶ 11/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./11/center.html" target="viewer">center.html</a></li>
+          <li class="file"><a href="./11/flex-1.html" target="viewer">flex-1.html</a></li>
+          <li class="file"><a href="./11/flex-2.html" target="viewer">flex-2.html</a></li>
+          <li class="file"><a href="./11/flex-3.html" target="viewer">flex-3.html</a></li>
+          <li class="file"><a href="./11/flex-4.html" target="viewer">flex-4.html</a></li>
+          <li class="file"><a href="./11/flex-5.html" target="viewer">flex-5.html</a></li>
+          <li class="file"><a href="./11/flex-6.html" target="viewer">flex-6.html</a></li>
+          <li class="file"><a href="./11/flex-7.html" target="viewer">flex-7.html</a></li>
+          <li class="file"><a href="./11/flex-8.html" target="viewer">flex-8.html</a></li>
+          <li class="file"><a href="./11/flex-9.html" target="viewer">flex-9.html</a></li>
+          <li class="file"><a href="./11/flex-10.html" target="viewer">flex-10.html</a></li>
+        </ul>
+      </li>
+      <li class="folder"><span onclick="toggle(this)">▶ 12/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./12/gallery.html" target="viewer">gallery.html</a></li>
+          <li class="file"><a href="./12/gr.html" target="viewer">gr.html</a></li>
+          <li class="file"><a href="./12/grid-1.html" target="viewer">grid-1.html</a></li>
+          <li class="file"><a href="./12/grid-2.html" target="viewer">grid-2.html</a></li>
+          <li class="file"><a href="./12/grid-3.html" target="viewer">grid-3.html</a></li>
+          <li class="file"><a href="./12/grid-4.html" target="viewer">grid-4.html</a></li>
+          <li class="file"><a href="./12/grid-5.html" target="viewer">grid-5.html</a></li>
+          <li class="file"><a href="./12/grid-6.html" target="viewer">grid-6.html</a></li>
+          <li class="file"><a href="./12/grid-7.html" target="viewer">grid-7.html</a></li>
+          <li class="file"><a href="./12/quiz-1.html" target="viewer">quiz-1.html</a></li>
+          <li class="file"><a href="./12/quiz-2.html" target="viewer">quiz-2.html</a></li>
+          <li class="file"><a href="./12/responsive.html" target="viewer">responsive.html</a></li>
+          <li class="file"><a href="./12/sol-1.html" target="viewer">sol-1.html</a></li>
+          <li class="file"><a href="./12/sol-2.html" target="viewer">sol-2.html</a></li>
+        </ul>
+      </li>
+      <li class="folder"><span onclick="toggle(this)">▶ 13/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./13/adj.html" target="viewer">adj.html</a></li>
+          <li class="file"><a href="./13/attr-1.html" target="viewer">attr-1.html</a></li>
+          <li class="file"><a href="./13/attr-2.html" target="viewer">attr-2.html</a></li>
+          <li class="file"><a href="./13/attr-3.html" target="viewer">attr-3.html</a></li>
+          <li class="file"><a href="./13/attr-4.html" target="viewer">attr-4.html</a></li>
+          <li class="file"><a href="./13/attr-5.html" target="viewer">attr-5.html</a></li>
+          <li class="file"><a href="./13/attr-6.html" target="viewer">attr-6.html</a></li>
+          <li class="file"><a href="./13/attr-7.html" target="viewer">attr-7.html</a></li>
+          <li class="file"><a href="./13/badge.html" target="viewer">badge.html</a></li>
+          <li class="file"><a href="./13/calc.html" target="viewer">calc.html</a></li>
+          <li class="file"><a href="./13/child.html" target="viewer">child.html</a></li>
+          <li class="file"><a href="./13/clamp.html" target="viewer">clamp.html</a></li>
+          <li class="file"><a href="./13/descendant.html" target="viewer">descendant.html</a></li>
+          <li class="file"><a href="./13/filter.html" target="viewer">filter.html</a></li>
+          <li class="file"><a href="./13/minmax.html" target="viewer">minmax.html</a></li>
+          <li class="file"><a href="./13/navi.html" target="viewer">navi.html</a></li>
+          <li class="file"><a href="./13/nth.html" target="viewer">nth.html</a></li>
+          <li class="file"><a href="./13/pclass-1.html" target="viewer">pclass-1.html</a></li>
+          <li class="file"><a href="./13/pclass-2.html" target="viewer">pclass-2.html</a></li>
+          <li class="file"><a href="./13/pclass-3.html" target="viewer">pclass-3.html</a></li>
+          <li class="file"><a href="./13/pclass-4.html" target="viewer">pclass-4.html</a></li>
+          <li class="file"><a href="./13/pclass-5.html" target="viewer">pclass-5.html</a></li>
+          <li class="file"><a href="./13/pclass-6.html" target="viewer">pclass-6.html</a></li>
+          <li class="file"><a href="./13/pclass-7.html" target="viewer">pclass-7.html</a></li>
+        </ul>
+      </li>
+    
+      <li class="folder"><span onclick="toggle(this)">▶ 14/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./14/ani-1.html" target="viewer">ani-1.html</a></li>
+          <li class="file"><a href="./14/ani-2.html" target="viewer">ani-2.html</a></li>
+          <li class="file"><a href="./14/ani-3.html" target="viewer">ani-3.html</a></li>
+          <li class="file"><a href="./14/ani-4.html" target="viewer">ani-4.html</a></li>
+          <li class="file"><a href="./14/button.html" target="viewer">button.html</a></li>
+          <li class="file"><a href="./14/perspective.html" target="viewer">perspective.html</a></li>
+          <li class="file"><a href="./14/product.html" target="viewer">product.html</a></li>
+          <li class="file"><a href="./14/quiz-1.html" target="viewer">quiz-1.html</a></li>
+          <li class="file"><a href="./14/quiz-2.html" target="viewer">quiz-2.html</a></li>
+          <li class="file"><a href="./14/rotate.html" target="viewer">rotate.html</a></li>
+          <li class="file"><a href="./14/rotate3d.html" target="viewer">rotate3d.html</a></li>
+          <li class="file"><a href="./14/scale.html" target="viewer">scale.html</a></li>
+          <li class="file"><a href="./14/skew-2.html" target="viewer">skew-2.html</a></li>
+          <li class="file"><a href="./14/skew.html" target="viewer">skew.html</a></li>
+          <li class="file"><a href="./14/sol-1.html" target="viewer">sol-1.html</a></li>
+          <li class="file"><a href="./14/sol-2.html" target="viewer">sol-2.html</a></li>
+          <li class="file"><a href="./14/tr-1.html" target="viewer">tr-1.html</a></li>
+          <li class="file"><a href="./14/tr-function.html" target="viewer">tr-function.html</a></li>
+          <li class="file"><a href="./14/tr-samples.html" target="viewer">tr-samples.html</a></li>
+          <li class="file"><a href="./14/transform.html" target="viewer">transform.html</a></li>
+          <li class="file"><a href="./14/translate.html" target="viewer">translate.html</a></li>
+        </ul>
+      </li>
+      
+     
+      <li class="folder"><span onclick="toggle(this)">▶ 15/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./15/alert.html" target="viewer">alert.html</a></li>
+          <li class="file"><a href="./15/clog.html" target="viewer">clog.html</a></li>
+          <li class="file"><a href="./15/confirm.html" target="viewer">confirm.html</a></li>
+          <li class="file"><a href="./15/dwrite.html" target="viewer">dwrite.html</a></li>
+          <li class="file"><a href="./15/greeting.html" target="viewer">greeting.html</a></li>
+          <li class="file"><a href="./15/js-time.html" target="viewer">js-time.html</a></li>
+          <li class="file"><a href="./15/prompt-1.html" target="viewer">prompt-1.html</a></li>
+          <li class="file"><a href="./15/prompt-2.html" target="viewer">prompt-2.html</a></li>
+          <li class="file"><a href="./15/script-1.html" target="viewer">script-1.html</a></li>
+          <li class="file"><a href="./15/script-2.html" target="viewer">script-2.html</a></li>
+        </ul>
+      </li>
+      <li class="folder"><span onclick="toggle(this)">▶ 16/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./16/and.html" target="viewer">and.html</a></li>
+          <li class="file"><a href="./16/dowhile.html" target="viewer">dowhile.html</a></li>
+          <li class="file"><a href="./16/even.html" target="viewer">even.html</a></li>
+          <li class="file"><a href="./16/if-1.html" target="viewer">if-1.html</a></li>
+          <li class="file"><a href="./16/if-2.html" target="viewer">if-2.html</a></li>
+          <li class="file"><a href="./16/if-3.html" target="viewer">if-3.html</a></li>
+          <li class="file"><a href="./16/or.html" target="viewer">or.html</a></li>
+          <li class="file"><a href="./16/quiz-1.html" target="viewer">quiz-1.html</a></li>
+          <li class="file"><a href="./16/quiz-2.html" target="viewer">quiz-2.html</a></li>
+          <li class="file"><a href="./16/repeat-1.html" target="viewer">repeat-1.html</a></li>
+          <li class="file"><a href="./16/repeat-2.html" target="viewer">repeat-2.html</a></li>
+          <li class="file"><a href="./16/repeat-3.html" target="viewer">repeat-3.html</a></li>
+          <li class="file"><a href="./16/seat-1.html" target="viewer">seat-1.html</a></li>
+          <li class="file"><a href="./16/seat-2.html" target="viewer">seat-2.html</a></li>
+          <li class="file"><a href="./16/sol-1.html" target="viewer">sol-1.html</a></li>
+          <li class="file"><a href="./16/sol-2.html" target="viewer">sol-2.html</a></li>
+          <li class="file"><a href="./16/switch.html" target="viewer">switch.html</a></li>
+          <li class="file"><a href="./16/timestable-1.html" target="viewer">timestable-1.html</a></li>
+          <li class="file"><a href="./16/timestable-2.html" target="viewer">timestable-2.html</a></li>
+          <li class="file"><a href="./16/timestable-3.html" target="viewer">timestable-3.html</a></li>
+          <li class="file"><a href="./16/var-1.html" target="viewer">var-1.html</a></li>
+          <li class="file"><a href="./16/var-2.html" target="viewer">var-2.html</a></li>
+          <li class="file"><a href="./16/while.html" target="viewer">while.html</a></li>
+        </ul>
+      </li>
+      <li class="folder"><span onclick="toggle(this)">▶ 17/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./17/arrow-1.html" target="viewer">arrow-1.html</a></li>
+          <li class="file"><a href="./17/arrow-2.html" target="viewer">arrow-2.html</a></li>
+          <li class="file"><a href="./17/arrow-3.html" target="viewer">arrow-3.html</a></li>
+          <li class="file"><a href="./17/calcSum.html" target="viewer">calcSum.html</a></li>
+          <li class="file"><a href="./17/event-1.html" target="viewer">event-1.html</a></li>
+          <li class="file"><a href="./17/event-2.html" target="viewer">event-2.html</a></li>
+          <li class="file"><a href="./17/event-3.html" target="viewer">event-3.html</a></li>
+          <li class="file"><a href="./17/function-1.html" target="viewer">function-1.html</a></li>
+          <li class="file"><a href="./17/function-2.html" target="viewer">function-2.html</a></li>
+          <li class="file"><a href="./17/function-3.html" target="viewer">function-3.html</a></li>
+          <li class="file"><a href="./17/function-4.html" target="viewer">function-4.html</a></li>
+          <li class="file"><a href="./17/function-5.html" target="viewer">function-5.html</a></li>
+          <li class="file"><a href="./17/no-function.html" target="viewer">no-function.html</a></li>
+          <li class="file"><a href="./17/quiz-1.html" target="viewer">quiz-1.html</a></li>
+          <li class="file"><a href="./17/quiz-2.html" target="viewer">quiz-2.html</a></li>
+          <li class="file"><a href="./17/sol-1.html" target="viewer">sol-1.html</a></li>
+          <li class="file"><a href="./17/sol-2.html" target="viewer">sol-2.html</a></li>
+          <li class="file"><a href="./17/using-function.html" target="viewer">using-function.html</a></li>
+          <li class="file"><a href="./17/var-1.html" target="viewer">var-1.html</a></li>
+          <li class="file"><a href="./17/var-2.html" target="viewer">var-2.html</a></li>
+          <li class="file"><a href="./17/var-3.html" target="viewer">var-3.html</a></li>
+          <li class="file"><a href="./17/var-4.html" target="viewer">var-4.html</a></li>
+        </ul>
+      </li>
+      <li class="folder"><span onclick="toggle(this)">▶ 18/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./18/array-1.html" target="viewer">array-1.html</a></li>
+          <li class="file"><a href="./18/array-2.html" target="viewer">array-2.html</a></li>
+          <li class="file"><a href="./18/array-3.html" target="viewer">array-3.html</a></li>
+          <li class="file"><a href="./18/array-4.html" target="viewer">array-4.html</a></li>
+          <li class="file"><a href="./18/center.html" target="viewer">center.html</a></li>
+          <li class="file"><a href="./18/close.html" target="viewer">close.html</a></li>
+          <li class="file"><a href="./18/current.html" target="viewer">current.html</a></li>
+          <li class="file"><a href="./18/days.html" target="viewer">days.html</a></li>
+          <li class="file"><a href="./18/event-2.html" target="viewer">event-2.html</a></li>
+          <li class="file"><a href="./18/event.html" target="viewer">event.html</a></li>
+          <li class="file"><a href="./18/location.html" target="viewer">location.html</a></li>
+          <li class="file"><a href="./18/notice.html" target="viewer">notice.html</a></li>
+          <li class="file"><a href="./18/popup-check.html" target="viewer">popup-check.html</a></li>
+          <li class="file"><a href="./18/popup.html" target="viewer">popup.html</a></li>
+          <li class="file"><a href="./18/position.html" target="viewer">position.html</a></li>
+          <li class="file"><a href="./18/quiz-1.html" target="viewer">quiz-1.html</a></li>
+          <li class="file"><a href="./18/quiz-2.html" target="viewer">quiz-2.html</a></li>
+          <li class="file"><a href="./18/screen.html" target="viewer">screen.html</a></li>
+          <li class="file"><a href="./18/sol-1.html" target="viewer">sol-1.html</a></li>
+          <li class="file"><a href="./18/sol-2.html" target="viewer">sol-2.html</a></li>
+          <li class="file"><a href="./18/time-1.html" target="viewer">time-1.html</a></li>
+          <li class="file"><a href="./18/time-2.html" target="viewer">time-2.html</a></li>
+        </ul>
+      </li>
+      <li class="folder"><span onclick="toggle(this)">▶ 19/</span>
+        <ul class="hidden">
+          <li class="file"><a href="./19/button-1.html" target="viewer">button-1.html</a></li>
+          <li class="file"><a href="./19/button-2.html" target="viewer">button-2.html</a></li>
+          <li class="file"><a href="./19/classList.html" target="viewer">classList.html</a></li>
+          <li class="file"><a href="./19/create.html" target="viewer">create.html</a></li>
+          <li class="file"><a href="./19/delete.html" target="viewer">delete.html</a></li>
+          <li class="file"><a href="./19/domCss.html" target="viewer">domCss.html</a></li>
+          <li class="file"><a href="./19/domTree.html" target="viewer">domTree.html</a></li>
+          <li class="file"><a href="./19/event-1.html" target="viewer">event-1.html</a></li>
+          <li class="file"><a href="./19/event-2.html" target="viewer">event-2.html</a></li>
+          <li class="file"><a href="./19/event-3.html" target="viewer">event-3.html</a></li>
+          <li class="file"><a href="./19/event-4.html" target="viewer">event-4.html</a></li>
+          <li class="file"><a href="./19/event-5.html" target="viewer">event-5.html</a></li>
+          <li class="file"><a href="./19/event-6.html" target="viewer">event-6.html</a></li>
+          <li class="file"><a href="./19/index.html" target="viewer">index.html</a></li>
+          <li class="file"><a href="./19/lightbox.html" target="viewer">lightbox.html</a></li>
+          <li class="file"><a href="./19/nodeList.html" target="viewer">nodeList.html</a></li>
+          <li class="file"><a href="./19/popup-layer.html" target="viewer">popup-layer.html</a></li>
+          <li class="file"><a href="./19/quiz-1.html" target="viewer">quiz-1.html</a></li>
+          <li class="file"><a href="./19/quiz-2.html" target="viewer">quiz-2.html</a></li>
+          <li class="file"><a href="./19/sol-1.html" target="viewer">sol-1.html</a></li>
+          <li class="file"><a href="./19/sol-2.html" target="viewer">sol-2.html</a></li>
+          <li class="file"><a href="./19/text-1.html" target="viewer">text-1.html</a></li>
+          <li class="file"><a href="./19/text-2.html" target="viewer">text-2.html</a></li>
+        </ul>
+      </li>
+    
+  </div>
+  <div class="content">
+    <iframe name="viewer" src="./02/index.html"></iframe>
+    <!-- <footer>
+      © 2025 정지아의 웹 페이지
+    </footer> -->
+  </div>
+  
+  <script>
+    function toggle(elem) {
+      const folder = elem.nextElementSibling;
+      folder.classList.toggle("hidden");
+      elem.textContent = folder.classList.contains("hidden") ? "▶ " + elem.textContent.slice(2) : "▼ " + elem.textContent.slice(2);
+    }
+  </script>
+</body>
+
+</html>
